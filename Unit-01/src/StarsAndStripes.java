@@ -18,12 +18,12 @@ public class StarsAndStripes
 
    public void printTwentyStars()
    {
-	   out.print("********************");
+	   out.println("********************");
    }
 
    public void printTwentyDashes()
    {
-	   out.print("--------------------");
+	   out.println("--------------------");
    }
 
    public void printTwoBlankLines()
@@ -33,11 +33,27 @@ public class StarsAndStripes
    
    public void printASmallBox()
    {	
-	   printTwentyStars();
-	   printTwentyDashes();
+	   System.out.println("AAAAAAAAAAAAAAAAAA");
+	   System.out.println("A++++++++++++++++A");
+	   System.out.println("A++++++++++++++++A");
+	   System.out.println("A++++++++++++++++A");
+	   System.out.println("A++++++++++++++++A");
+	   System.out.println("A++++++++++++++++A");
+	   System.out.println("A++++++++++++++++A");
+	   System.out.println("AAAAAAAAAAAAAAAAAA");
    }
  
    public void printABigBox()
-   { 	
+   {
+	   System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("A++++++++++++++++++++++A");
+	   System.out.println("AAAAAAAAAAAAAAAAAAAAAAAA");
    }   
 }

@@ -1,4 +1,4 @@
-//© A+ Computer Science
+//ï¿½ A+ Computer Science
 //www.apluscompsci.com
 
 //Name -
@@ -12,9 +12,27 @@ public class StarsRunner
 {
    public static void main(String args[])
    {
-      //instantiate a StarsAndStripes object
-      
-      //call the methods needed to make the patterns on the word document
-      
+	   //Stars Runner code
+	   
+	   //must make a new object
+	   StarsAndStripes ref = new StarsAndStripes();
+	   
+	   //example method call
+	   ref.printTwentyStars();
+	   
+	   //add more methods calls
+	   ref.printTwentyDashes();
+	   
+	   ref.printTwoBlankLines();
+	   
+	   for (int i = 0; i < 5; i++) {
+		   ref.printASmallBox();
+		   ref.printABigBox();
+	   }
+	   
+	   ref.printTwoBlankLines();
+	   ref.printTwentyDashes();
+	   ref.printTwentyStars();
+
    }
 }

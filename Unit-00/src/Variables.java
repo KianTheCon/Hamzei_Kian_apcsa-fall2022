@@ -28,7 +28,7 @@ public class Variables
 		double doubleOne = 923.234;
 
 		//other integer types
-		char charOne = A;
+		char charOne = 'A';
 		
 		//other types
 		boolean booleanOne = true;

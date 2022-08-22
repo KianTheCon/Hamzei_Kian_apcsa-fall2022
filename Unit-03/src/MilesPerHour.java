@@ -49,6 +49,5 @@ public class MilesPerHour
 	public String toString()
 	{
 		return String.format(distance + " miles in " + hours + " hours and " + minutes + " minutes = %.0f MPH\n", mph);
-//		return String.format("%.3f miles in %.3f hour and %.3f minutes = %.3f MPH", distance, hours, minutes, mph);
 	}
 }

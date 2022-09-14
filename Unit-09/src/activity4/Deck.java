@@ -42,6 +42,7 @@ public class Deck {
 		for (int i = 0; i < items[0]; i++) {
 			cards[i] = new Card(ranks[i], suits[i], values[i]);
 		}
+		shuffle();
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 	}
 
@@ -70,6 +71,12 @@ public class Deck {
 	 */
 	public void shuffle() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+		for (int k = 0, r = 0; k < cards.length; k++, r = (int)(Math.random() * k)) {
+			Card temp = cards[k];
+			cards[k] = cards[r];
+			cards[r] = temp;
+		}
+		
 	}
 
 	/**

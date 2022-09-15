@@ -1,4 +1,8 @@
 package activity3;
+
+//MR MAURO SAID THIS DOES NOT NEED TO BE CONVERTED TO ARRAYLISTS
+
+
 /**
  * This class provides a convenient way to test shuffling methods.
  */

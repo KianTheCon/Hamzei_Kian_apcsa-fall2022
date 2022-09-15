@@ -1,3 +1,6 @@
+package activity2;
+import java.util.List;
+
 import activity1.Card;
 
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ public class Deck {
 	/**
 	 * cards contains all the cards in the deck.
 	 */
-	private Card[] cards;
+	private ArrayList<Card> cards = new ArrayList<Card>();
 
 	/**
 	 * size is the number of not-yet-dealt cards.
@@ -35,11 +38,9 @@ public class Deck {
 		int items[] = {ranks.length, suits.length, values.length};
 		Arrays.sort(items);
 		size = items[0];
-		cards = new Card[size];
 		for (int i = 0; i < items[0]; i++) {
-			cards[i] = new Card(ranks[i], suits[i], values[i]);
+			cards.add(new Card(ranks[i], suits[i], values[i]));
 		}
-		shuffle();
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 	}
 
@@ -50,7 +51,7 @@ public class Deck {
 	 */
 	public boolean isEmpty() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
-		return (cards.length == 0);
+		return (cards.size() == 0);
 	}
 
 	/**
@@ -68,12 +69,6 @@ public class Deck {
 	 */
 	public void shuffle() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
-		for (int k = 0, r = 0; k < cards.length; k++, r = (int)(Math.random() * k)) {
-			Card temp = cards[k];
-			cards[k] = cards[r];
-			cards[r] = temp;
-		}
-		
 	}
 
 	/**
@@ -84,7 +79,7 @@ public class Deck {
 	public Card deal() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 		if(!isEmpty()) {
-			return cards[--size];
+			return cards.get(--size);
 		}
 		return null;
 	}
@@ -98,7 +93,7 @@ public class Deck {
 		String rtn = "size = " + size + "\nUndealt cards: \n";
 
 		for (int k = size - 1; k >= 0; k--) {
-			rtn = rtn + cards[k];
+			rtn = rtn + cards.get(k);
 			if (k != 0) {
 				rtn = rtn + ", ";
 			}
@@ -109,12 +104,12 @@ public class Deck {
 		}
 
 		rtn = rtn + "\nDealt cards: \n";
-		for (int k = cards.length - 1; k >= size; k--) {
-			rtn = rtn + cards[k];
+		for (int k = cards.size() - 1; k >= size; k--) {
+			rtn = rtn + cards.get(k);
 			if (k != size) {
 				rtn = rtn + ", ";
 			}
-			if ((k - cards.length) % 2 == 0) {
+			if ((k - cards.size()) % 2 == 0) {
 				// Insert carriage returns so entire deck is visible on console.
 				rtn = rtn + "\n";
 			}

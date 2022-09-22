@@ -41,6 +41,7 @@ public class Deck {
 		for (int i = 0; i < items[0]; i++) {
 			cards.add(new Card(ranks[i], suits[i], values[i]));
 		}
+		shuffle();
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 	}
 

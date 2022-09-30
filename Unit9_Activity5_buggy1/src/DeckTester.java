@@ -1,3 +1,4 @@
+import static Deck;
 /**
  * This is a class that tests the Deck class using assert statements.
  */

@@ -1,5 +1,5 @@
 package activity9;
-import activity7.Card;
+import activity9.Card;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -70,10 +70,12 @@ public class Deck {
 	 */
 	public void shuffle() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
-		for (int k = 0, r = 0; k < cards.size(); k++, r = (int)(Math.random() * k)) {
+		for (int k = 0, r = 0; k < size; k++, r = (int)(Math.random() * k)) {
 			Card temp = cards.get(k);
 			cards.add(k, cards.get(r));
+			cards.remove(k + 1);
 			cards.add(r, temp);
+			cards.remove(r+1);
 		}
 		
 	}

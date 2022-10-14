@@ -51,7 +51,7 @@ public class Deck {
 	 */
 	public boolean isEmpty() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
-		return (cards.length == 0);
+		return (size == 0);
 	}
 
 	/**

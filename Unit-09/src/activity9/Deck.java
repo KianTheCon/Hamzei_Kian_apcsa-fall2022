@@ -33,12 +33,13 @@ public class Deck {
 	 * @param values is an array containing all of the card point values.
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
-		int items[] = {ranks.length, suits.length, values.length};
-		Arrays.sort(items);
-		size = items[0];
+		size = (ranks.length*suits.length);
 		cards = new Card[size];
-		for (int i = 0; i < items[0]; i++) {
-			cards[i] = new Card(ranks[i], suits[i], values[i]);
+		int i = 0;
+		for(int r = 0; r < ranks.length; r++) {
+			for(int s = 0; s < suits.length; s++) {
+				cards[i++] = new Card(ranks[r], suits[s], values[r]);
+			}
 		}
 		shuffle();
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
@@ -51,7 +52,7 @@ public class Deck {
 	 */
 	public boolean isEmpty() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
-		return (cards.length == 0);
+		return (size == 0);
 	}
 
 	/**

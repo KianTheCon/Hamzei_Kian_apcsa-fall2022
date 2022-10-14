@@ -34,7 +34,7 @@ public class ElevensBoard extends Board {
 	/**
 	 * Flag used to control debugging print statements.
 	 */
-	private static final boolean I_AM_DEBUGGING = false;
+	private static final boolean I_AM_DEBUGGING = true;
 
 
 	/**
@@ -56,8 +56,18 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-//		boolean a = (selectedCards.size() == 2 && (selectedCards.get(0) + selectedCards.get(1) == 11));
-//		return a;
+		Card cardsa[] = new Card[selectedCards.size()];
+		for (int i = 0; i < selectedCards.size(); i++)
+			cardsa[i] = cardAt(selectedCards.get(i));
+		if (cardsa.length == 2 && (cardsa[0].pointValue() + cardsa[1].pointValue() == 11)) return true;
+		else if(cardsa[0].rank().equals("king") && cardsa[1].rank().equals("jack") && cardsa[2].rank().equals("queen")) return true;
+		else if (cardsa[0].rank().equals("king") && cardsa[2].rank().equals("jack") && cardsa[1].rank().equals("queen")) return true;
+		else if (cardsa[1].rank().equals("king") && cardsa[0].rank().equals("jack") && cardsa[2].rank().equals("queen")) return true;
+		else if (cardsa[1].rank().equals("king") && cardsa[2].rank().equals("jack") && cardsa[0].rank().equals("queen")) return true;
+		else if (cardsa[2].rank().equals("king") && cardsa[0].rank().equals("jack") && cardsa[1].rank().equals("queen")) return true;
+		else if (cardsa[2].rank().equals("king") && cardsa[1].rank().equals("jack") && cardsa[0].rank().equals("queen")) return true;
+		
+		return false;
 	}
 
 	/**
@@ -71,6 +81,7 @@ public class ElevensBoard extends Board {
 	@Override
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		return (containsPairSum11(cardIndexes()) || containsJQK(cardIndexes()));
 	}
 
 	/**
@@ -83,6 +94,14 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsPairSum11(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		for(int i = 0; i< selectedCards.size(); i++) {
+			for (int a = 0; a < selectedCards.size(); a++) {
+				if(cardAt(i).pointValue() + cardAt(a).pointValue() == 11)
+					return true;
+				
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -95,5 +114,19 @@ public class ElevensBoard extends Board {
 	 */
 	private boolean containsJQK(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
+		for(int i = 0; i< selectedCards.size(); i++) {
+			for (int a = 0; a < selectedCards.size(); a++) {
+				for (int b = 0; b < selectedCards.size(); b++) {
+					if(cardAt(b).rank().equals("king") && cardAt(a).rank().equals("jack") && cardAt(i).rank().equals("queen")) return true;
+					else if (cardAt(b).rank().equals("king") && cardAt(i).rank().equals("jack") && cardAt(a).rank().equals("queen")) return true;
+					else if (cardAt(a).rank().equals("king") && cardAt(b).rank().equals("jack") && cardAt(i).rank().equals("queen")) return true;
+					else if (cardAt(a).rank().equals("king") && cardAt(i).rank().equals("jack") && cardAt(b).rank().equals("queen")) return true;
+					else if (cardAt(i).rank().equals("king") && cardAt(b).rank().equals("jack") && cardAt(a).rank().equals("queen")) return true;
+					else if (cardAt(i).rank().equals("king") && cardAt(a).rank().equals("jack") && cardAt(b).rank().equals("queen")) return true;
+				}
+			}
+		}
+		return false;
+		
 	}
 }

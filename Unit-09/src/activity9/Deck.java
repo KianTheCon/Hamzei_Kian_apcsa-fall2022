@@ -70,6 +70,7 @@ public class Deck {
 	 */
 	public void shuffle() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 4 *** */
+		size = (cards.length);
 		for (int k = 0, r = 0; k < cards.length; k++, r = (int)(Math.random() * k)) {
 			Card temp = cards[k];
 			cards[k] = cards[r];

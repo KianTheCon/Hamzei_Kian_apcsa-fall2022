@@ -1,6 +1,4 @@
-//(c) A+ Computer Science
-//www.apluscompsci.com
-//Name -
+
 
 import java.util.Arrays; 
 import java.util.Scanner;
@@ -24,11 +22,24 @@ public class NumberSorter
 	{
 		int[] sorted = new int[getNumDigits(number)];
 		
-		for(int i = 1, past = 0, p = 0; i <= sorted.length; i++, p = (int)(Math.pow(10, i))) {
-			sorted[i-1] = number % p - (past * );
-			past = number % p;
-		}
+//		for(int i = 1, past = 0, p = 1; i <= sorted.length; i++, p = (int)(Math.pow(10, i))) {
+//			sorted[i-1] = number % p - (past * i);
+//			past = number % p;
+//		}
 		
+		for(int i = 0; i <sorted.length; i++) {
+			sorted[i] = number % 10;
+			number = (number/10);
+		}
+		for(int i = 0; i <sorted.length; i++) {
+			for(int a = 0; a <sorted.length; a++) {
+				if(sorted[i] < sorted[a]) {
+					int temp = sorted[a];
+					sorted[a] = sorted[i];
+					sorted[i] = temp;
+				}
+			}
+		}
 		return sorted;
 	}
 }

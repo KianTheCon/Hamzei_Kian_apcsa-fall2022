@@ -1,6 +1,4 @@
-//(c) A+ Computer Science
-//www.apluscompsci.com
-//Name -
+
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -12,12 +10,15 @@ public class WordSortTwoRunner
 {
 	public static void main( String args[] ) throws IOException
 	{
-		Scanner file = new Scanner(new File("wordsorttwo.dat"));
+		Scanner file = new Scanner(new File("src/wordsorttwo.dat"));
 		int size = file.nextInt();
 		file.nextLine();
 		for(int i = 0; i<size; i++)
 		{
 			String sentence = file.nextLine();
+			WordSortTwo line = new WordSortTwo(sentence);
+			line.sort();
+			System.out.println(line);
 			//instantiate a new WordSort
 		}
 	}

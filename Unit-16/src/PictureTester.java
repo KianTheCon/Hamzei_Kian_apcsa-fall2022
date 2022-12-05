@@ -178,7 +178,7 @@ public class PictureTester
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
 //    testNegate();
-//    testGrayscale();
+    testGrayscale();
 //    testFixUnderwater();
 //    testMirrorVertical();
 //    testMirrorVerticalRightToLeft();
@@ -186,13 +186,13 @@ public class PictureTester
 //	  testMirrorHorizontalBotToTop();
 //	  testMirrorDiagonal();
 	//testMirrorTemple();
-//    testMirrorArms();
+    testMirrorArms();
 //    testMirrorGull();
     //testMirrorDiagonal();
 //    testCollage();
 //	  testMyCollage();
 //    testCopy();
-    testEdgeDetection();
+//    testEdgeDetection();
     testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();

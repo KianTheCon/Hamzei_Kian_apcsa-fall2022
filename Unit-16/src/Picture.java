@@ -2,6 +2,11 @@ import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
+import java.io.Console;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.text.*;
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
@@ -480,6 +485,149 @@ public void mirrorDiagonal()
      }
    }
  }
+ 
+ /** EXAMPLE ENCODE
+	 * Hide a black and white message in the current picture by changing the red to
+	 * even and then setting it to odd if the message pixel is black
+	 * 
+	 * @param messagePict the picture with a message
+	 */
+ 	public void exencode(Picture messagePict) {
+		Pixel[][] messagePixels = messagePict.getPixels2D();
+		Pixel[][] currPixels = this.getPixels2D();
+		Pixel currPixel = null;
+		Pixel messagePixel = null;
+		int count = 0;
+		for (int row = 0; row < this.getHeight(); row++) {
+			for (int col = 0; col < this.getWidth(); col++) {
+				// if the current pixel red is odd make it even
+				currPixel = currPixels[row][col];
+				if (currPixel.getRed() % 2 == 1)
+					currPixel.setRed(currPixel.getRed() - 1);
+				messagePixel = messagePixels[row][col];
+				if (messagePixel.colorDistance(Color.BLACK) < 50) {
+					currPixel.setRed(currPixel.getRed() + 1);
+					count++;
+				}
+			}
+		}
+		System.out.println(count);
+	}
+
+	/**EXAMPLE DECODE
+	 * Method to decode a message hidden in the red value of the current picture
+	 * 
+	 * @return the picture with the hidden message
+	 */
+	public Picture exdecode() {
+		Pixel[][] pixels = this.getPixels2D();
+		int height = this.getHeight();
+		int width = this.getWidth();
+		Pixel currPixel = null;
+
+		Pixel messagePixel = null;
+		Picture messagePicture = new Picture(height, width);
+		Pixel[][] messagePixels = messagePicture.getPixels2D();
+		int count = 0;
+		for (int row = 0; row < this.getHeight(); row++) {
+			for (int col = 0; col < this.getWidth(); col++) {
+				currPixel = pixels[row][col];
+				messagePixel = messagePixels[row][col];
+				if (currPixel.getRed() % 2 == 1) {
+					messagePixel.setColor(Color.BLACK);
+					count++;
+				}
+			}
+		}
+		System.out.println(count);
+		return messagePicture;
+	}
+
+ 
+ 	public void encode(Picture messagePict) {
+		Pixel[][] messagePixels = messagePict.getPixels2D();
+		Pixel[][] currPixels = this.getPixels2D();
+		Pixel currPixel = null;
+		Pixel messagePixel = null;
+		int count = 0;
+		ArrayList<Pixel> blackPixels = new ArrayList<Pixel>();
+		int i = 0;
+		for (int row = 0; row < this.getHeight(); row++) {
+			for (int col = 0; col < this.getWidth(); col++) {
+
+				currPixel = currPixels[row][col];
+				int b = currPixel.getBlue();
+				if(currPixel.getBlue() % 4 == 0) {
+					b++;
+				}
+				
+				int r = Math.round(((float)currPixel.getRed()/10)) *10;
+				r = r>=255 ? 250: r;
+				this.setBasicPixel(col, row, new Color(r, currPixel.getGreen(), currPixel.getBlue()).getRGB());
+
+				messagePixel = messagePixels[row][col];
+				if (messagePixel.colorDistance(Color.BLACK) < 50) {
+					blackPixels.add(currPixels[row][col]);
+					i++;
+					
+				}
+				this.setBasicPixel(col, row, new Color(r, currPixel.getGreen(), b).getRGB());
+				
+			}
+		}
+		System.out.println(blackPixels.size() + "");
+		
+		 
+		for(Pixel b : blackPixels) {
+			boolean newFound = false;
+			int vTranslate = 0;
+			int r = 0;
+			while(!newFound) {
+				vTranslate = (int)(Math.random() * 10) * (Math.random() >= .5 ? 1: -1);
+				r = currPixels[b.getY() + vTranslate][b.getX()].getRed() + Math.abs(vTranslate);
+				newFound = this.getPixel(b.getX(), b.getY() + vTranslate).getRed() % 10 == 0 && r < 256 && r > 0;
+			}
+			int gdiff = 0;
+			boolean bo = false;
+			if(vTranslate < 0) {gdiff = (this.getPixel(b.getX(), b.getY() + vTranslate).getGreen() % 2); bo = true;}
+			else gdiff = -1 * ((this.getPixel(b.getX(), b.getY() + vTranslate).getGreen() % 2) - 1);
+			
+			int bl = currPixels[b.getY() + vTranslate][b.getX()].getBlue();
+			int a = bl % 4;
+			bl = bl + ((a >= 2) ? 4-a: -a);
+			this.setBasicPixel(b.getX(), b.getY() + vTranslate, new Color(currPixels[b.getY() + vTranslate][b.getX()].getRed() + Math.abs(vTranslate), currPixels[b.getY() + vTranslate][b.getX()].getGreen() - gdiff, bl).getRGB());
+
+
+		}
+	}
+	
+	public Picture decode() {
+		Pixel[][] pixels = this.getPixels2D();
+		int height = this.getHeight();
+		int width = this.getWidth();
+		Pixel currPixel = null;
+
+		Pixel messagePixel = null;
+		Picture messagePicture = new Picture(height, width);
+		Pixel[][] messagePixels = messagePicture.getPixels2D();
+		int count = 0;
+		
+		for (int row = 0; row < this.getHeight(); row++) {
+			for (int col = 0; col < this.getWidth(); col++) {
+				currPixel = pixels[row][col];
+				messagePixel = messagePixels[row][col];
+				int r = 1;
+				if(currPixel.getGreen() % 2 == 0 && row != 480) r = -1;
+				if ((this.getPixel(col, row).getBlue()) % 4 == 0) {
+
+					messagePixels[row - (r * (currPixel.getRed() % 10))][col].setColor(Color.black);
+					count++;
+				}
+			}
+		}
+		System.out.println(count);
+		return messagePicture;
+	}
   
   
   /* Main method for testing - each class in Java can have a main 
@@ -487,10 +635,20 @@ public void mirrorDiagonal()
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("src/beach.jpg");
-    beach.explore();
-    beach.zeroBlue();
-    beach.explore();
+	  Picture beach = new Picture("src/beach.jpg");
+	  Picture encoded = new Picture("src/apple_icon.jpg");
+//	  Picture encoded = new Picture("src/msg.jpg");
+	  encoded.explore();
+	  beach.explore();
+	  beach.encode(encoded);
+	  beach.explore();
+	  beach.decode().explore();
+	  
+	  
+//    beach.explore();
+//    beach.zeroBlue();
+//    beach.explore();
+	  
   }
   
 } // this } is the end of class Picture, put all new methods before this
